@@ -10,20 +10,48 @@
         </template>
         <template v-slot:default="dialog">
           <v-card>
-            <v-toolbar color="primary" dark
-              ><h1>Upload your file</h1></v-toolbar
+            <div color="primary" class="d-flex px-5 py-3 blue align-content-center"
+              ><h1>Upload your file</h1>
+              <v-spacer></v-spacer>
+                <v-btn  icon @click="dialog.value = false"
+                  ><v-icon>mdi-close</v-icon></v-btn
+                ></div
             >
             <v-card-text>
               <v-text-field label="Name of upload" v-model="name">
               </v-text-field>
-              <v-file-input
-                show-size
-                counter
-                label="File input"
-              ></v-file-input>
+              <v-file-input show-size counter label="File input"></v-file-input>
             </v-card-text>
             <v-card-actions class="justify-end">
-              <v-btn text @click="submit">Close</v-btn>
+              <v-btn text @click="submit"
+                >Upload
+                <v-progress-circular
+                  :width="3"
+                  class="ml-2"
+                  v-if="loading"
+                  indeterminate
+                  color="primary"
+                ></v-progress-circular>
+              </v-btn>
+              <v-snackbar
+                class="mt-5"
+                v-model="snackbar"
+                :timeout="timeout"
+                top="true"
+              >
+                {{ text }}
+
+                <template v-slot:action="{ attrs }">
+                  <v-btn
+                    color="blue"
+                    text
+                    v-bind="attrs"
+                    @click="snackbar = false"
+                  >
+                    Close
+                  </v-btn>
+                </template>
+              </v-snackbar>
             </v-card-actions>
           </v-card>
         </template>
@@ -52,16 +80,23 @@ export default {
   name: "InspirePage",
   data() {
     return {
-      dialog: false,
+      snackbar: false,
+      text: "File has been uploaded",
+      timeout: 4000,
+      loading: false,
       name: null,
       transparent: "rgba(255, 255, 255, 0)",
     };
   },
-  methods:{
-    submit(){
-      this.dialog = false;
-    }
-  }
+  methods: {
+    submit() {
+      this.loading = true;
+      setTimeout(() => {
+        this.snackbar = true;
+        this.loading = false;
+      }, 2000);
+    },
+  },
 };
 </script>
 <style scoped>
