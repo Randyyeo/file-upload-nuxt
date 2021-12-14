@@ -1,6 +1,6 @@
 import axios from 'axios'
-const origin = "https://utility-backend-app.herokuapp.com"
-/* const origin = "http://localhost:4000" */
+
+const origin = "http://localhost:4000"
 
 const setHeader = (token)=>{
     return {
@@ -15,11 +15,11 @@ const API = {};
 
 API.signin = async (data) => {
     
-    return await axios.post(`${origin}/users/signin`, data, setHeader());
+    return await axios.post(`${origin}/users/login`, data, setHeader());
 }
 
 API.signup = async (data) => {
-    return await axios.post(`${origin}/users/signup`, data, setHeader());
+    return await axios.post(`${origin}/users/register`, data, setHeader());
 }
 
 API.token = async (token) => {
@@ -30,8 +30,21 @@ API.getAll = async (token) => {
     return await axios.get(`${origin}/find`, setHeader(token))
 }
 
+API.db = async (token, data) => {
+    return await axios.post(`${origin}/add/db`, data, setHeader(token))
+}
+
 API.upload = async (token, data) => {
-    return axios.post(`${origin}/add`,data, setHeader(token))
+    const Header = (token)=>{
+        return {
+          headers:{
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': 'Bearer '+ token
+                  }
+        }
+    }
+    console.log(data)
+    return axios.post(`${origin}/add`, data, Header(token))
 }
 
 
