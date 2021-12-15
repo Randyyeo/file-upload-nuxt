@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-row justify="center" align="center" style="margin-top: 10%">
+    <v-row justify="center" align="center" style="margin-top: 15%">
       <v-col cols="12" sm="8" md="6">
         <v-card>
           <v-card-title class="headline"> Register </v-card-title>
@@ -51,7 +51,7 @@
               >Register</v-btn
             >
             <br />
-            <a href="/">Already have an account? Login here</a>
+            <a href="/login">Already have an account? Login here</a>
             <p v-if="error" class="red--text">
               {{ error }}
             </p>

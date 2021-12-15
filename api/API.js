@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const origin = "http://localhost:4000"
+const origin = process.env.origin
 
 const setHeader = (token)=>{
     return {
@@ -14,7 +14,7 @@ const setHeader = (token)=>{
 const API = {};
 
 API.signin = async (data) => {
-    
+    console.log(origin)
     return await axios.post(`${origin}/users/login`, data, setHeader());
 }
 
@@ -33,6 +33,11 @@ API.getAll = async (token) => {
 API.db = async (token, data) => {
     return await axios.post(`${origin}/add/db`, data, setHeader(token))
 }
+
+API.download = async (token, data) => {
+    return await axios.post(`${origin}/find/download`, data, setHeader(token))
+}
+
 
 API.upload = async (token, data) => {
     const Header = (token)=>{
