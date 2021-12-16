@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-row justify="center" align="center" style="margin-top: 15%">
+    <v-row justify="center" align="center" class="register">
       <v-col cols="12" sm="8" md="6">
         <v-card>
           <v-card-title class="headline"> Register </v-card-title>
@@ -47,9 +47,16 @@
             >
               ></v-text-field
             >
-            <v-btn color="primary" class="mb-2" @click="register"
-              >Register</v-btn
-            >
+            <v-btn color="primary" class="mb-2 py-5" @click="register"
+              >Login
+              <v-progress-circular
+                :width="3"
+                class="ml-2"
+                v-if="loading"
+                indeterminate
+                color="white"
+              ></v-progress-circular
+            ></v-btn>
             <br />
             <a href="/login">Already have an account? Login here</a>
             <p v-if="error" class="red--text">
@@ -81,6 +88,7 @@ export default {
   },
   methods: {
     async register() {
+        this.loading = true;
       if (
         this.firstName &&
         this.lastName &&
@@ -103,7 +111,7 @@ export default {
           window.localStorage.setItem("token", token);
           this.$router.push("/files");
         } catch (error) {
-          this.isLoading = false;
+          this.loading = false;
           this.error = error.response.data.message;
         }
       } else {
@@ -114,3 +122,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.register{
+    transform: translateY(40%);
+}
+</style>

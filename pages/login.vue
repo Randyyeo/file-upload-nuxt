@@ -1,7 +1,7 @@
 <template>
   <v-container>
-    <v-row justify="center" align="center" style="margin-top: 20%">
-      <v-col cols="12" sm="8" md="6">
+    <v-row justify="center" align="center" class="login">
+      <v-col cols="12" sm="8" md="6" xl="5">
         <v-card>
           <v-card-title class="headline"> Login </v-card-title>
           <v-card-text>
@@ -73,3 +73,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.login{
+    transform: translateY(70%);
+}
+</style>
