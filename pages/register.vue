@@ -48,7 +48,7 @@
               ></v-text-field
             >
             <v-btn color="primary" class="mb-2 py-5" @click="register"
-              >Login
+              >Register
               <v-progress-circular
                 :width="3"
                 class="ml-2"
