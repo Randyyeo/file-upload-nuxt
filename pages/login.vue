@@ -5,26 +5,36 @@
         <v-card>
           <v-card-title class="headline"> Login </v-card-title>
           <v-card-text>
-            <v-text-field v-model="email" label="Email" filled></v-text-field>
-            <v-text-field
-              v-model="password"
-              label="Password"
-              filled
-              
-              :type="show ? 'text' : 'password'"
-              :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-              @click:append="show = !show"
-            ></v-text-field>
-            <v-btn color="primary" class="mb-2 py-5" @click="login"
-              >Login
-              <v-progress-circular
-                :width="3"
-                class="ml-2"
-                v-if="loading"
-                indeterminate
-                color="white"
-              ></v-progress-circular
-            ></v-btn>
+            <v-form ref="form" v-model="valid">
+              <v-text-field
+                v-model="email"
+                label="Email"
+                filled
+                :rules="[rules.email]"
+                required
+              ></v-text-field>
+              <v-text-field
+                v-model="password"
+                label="Password"
+                filled
+                :rules="[rules.password]"
+                :type="show ? 'text' : 'password'"
+                :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+                @click:append="show = !show"
+                required
+              ></v-text-field>
+              <v-btn color="primary" class="mb-2 py-5" @click="login " :disabled="!valid"
+                >Login
+                <v-progress-circular
+                  :width="3"
+                  class="ml-2"
+                  v-if="loading"
+                  indeterminate
+                  color="white"
+                ></v-progress-circular
+              ></v-btn>
+            </v-form>
+
             <br />
             <a href="./register">Haven't made an account? Register here</a>
             <p v-if="error" class="red--text">
@@ -49,11 +59,17 @@ export default {
       password: null,
       loading: false,
       error: false,
+      rules: {
+        password: (password) => !!password || "This field is required",
+        email: (email) => !!email || "This field is required",
+      },
+      valid: false
     };
   },
   methods: {
     async login() {
       this.loading = true;
+      this.$refs.form.validate()
       if (this.email && this.password) {
         const data = { email: this.email, password: this.password };
         try {
@@ -63,10 +79,11 @@ export default {
           window.localStorage.setItem("token", token);
           this.$router.push("/files");
         } catch (error) {
+          this.loading = false;
           this.error = true;
         }
       } else {
-        this.isLoading = false;
+        this.loading = false;
         this.error = true;
       }
     },
@@ -74,7 +91,7 @@ export default {
 };
 </script>
 <style scoped>
-.login{
-    transform: translateY(70%);
+.login {
+  transform: translateY(70%);
 }
 </style>
