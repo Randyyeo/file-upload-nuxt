@@ -198,10 +198,8 @@ export default {
 
         const res1 = await API.db(token, data);
         this.files.push([this.name, this.file.name, date, time]);
-        setTimeout(() => {
-          this.snackbar = true;
-          this.loading = false;
-        }, 2000);
+        this.snackbar = true;
+        this.loading = false;
         this.name = null;
         this.file = null;
       } catch (error) {
