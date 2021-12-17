@@ -6,7 +6,9 @@ const setHeader = (token)=>{
     return {
       headers:{
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer '+ token
+                'Authorization': 'Bearer '+ token,
+                'X-Content-Type-Options': 'nosniff'
+                
               }
     }
 }
@@ -14,7 +16,7 @@ const setHeader = (token)=>{
 const API = {};
 
 API.signin = async (data) => {
-    console.log(origin)
+    
     return await axios.post(`${origin}/users/login`, data, setHeader());
 }
 
