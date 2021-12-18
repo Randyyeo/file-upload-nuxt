@@ -1,4 +1,4 @@
-This application is used to upload files for the user to store them. They can download them again if need be. This project was created using Nuxt.js, Vuetify.js
+The purpose of this application is for users to upload files and store them. They can download them again if need be. This project was created using Nuxt.js, Vuetify.js
 
 
 ## Installation
