@@ -92,6 +92,6 @@ export default {
 </script>
 <style scoped>
 .login {
-  transform: translateY(70%);
+  transform: translateY(50%);
 }
 </style>

@@ -150,6 +150,6 @@ export default {
 </script>
 <style scoped>
 .register {
-  transform: translateY(40%);
+  transform: translateY(20%);
 }
 </style>
